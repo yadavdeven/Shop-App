@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { addOrder } from "./orderReducer";
+import { deleteProduct } from "./productsReducer";
 const initialCartState = {
   items: [],
   totalAmount: 0,

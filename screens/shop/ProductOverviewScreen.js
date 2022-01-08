@@ -66,6 +66,9 @@ function ProductOverviewScreen({ navigation }, props) {
             console.log("orders press");
             navigation.navigate("Orders");
           }}
+          onAdminPress={() => {
+            navigation.navigate("UserProducts");
+          }}
         />
       ) : null}
 
@@ -87,12 +90,14 @@ function ProductOverviewScreen({ navigation }, props) {
               image={itemData.item.imageUrl}
               title={itemData.item.title}
               price={itemData.item.price}
-              onViewDetail={() => {
+              title1='View Details'
+              title2='To Cart'
+              onPress1={() => {
                 navigation.navigate("ProductDetail", {
                   productId: itemData.item.id,
                 });
               }}
-              onAddToCart={() => {
+              onPress2={() => {
                 dispatch(cartActions.addToCart(itemData.item));
               }}
             />

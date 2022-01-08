@@ -19,13 +19,13 @@ function ProductItem(props) {
       </View>
       <View style={styles.actions}>
         <Button
-          title='View Details'
-          onPress={props.onViewDetail}
+          title={props.title1}
+          onPress={props.onPress1}
           color={Colors.primary}
         />
         <Button
-          title='To Cart'
-          onPress={props.onAddToCart}
+          title={props.title2}
+          onPress={props.onPress2}
           color={Colors.primary}
         />
       </View>

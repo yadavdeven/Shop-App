@@ -6,6 +6,8 @@ import Colors from "../constants/Colors";
 import CartScreen from "../screens/shop/CartScreen";
 import OrdersScreen from "../screens/shop/OrdersScreen";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import UserProductsScreen from "../screens/user/UserProductsScreen";
+import EditProductScreen from "../screens/user/EditProductScreen";
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 function ShopNavigator(props) {
@@ -27,6 +29,20 @@ function ShopNavigator(props) {
       <Stack.Screen name='ProductDetail' component={ProductDetailScreen} />
       <Stack.Screen name='Cart' component={CartScreen} />
       <Stack.Screen name='Orders' component={OrdersScreen} />
+      <Stack.Screen
+        name='UserProducts'
+        component={UserProductsScreen}
+        options={{
+          headerTitle: "Your Products",
+        }}
+      />
+      <Stack.Screen
+        name='EditProductScreen'
+        component={EditProductScreen}
+        options={({ route }) => ({
+          headerTitle: route.params.productId ? "Edit Product" : "Add Product",
+        })}
+      />
     </Stack.Navigator>
   );
 }

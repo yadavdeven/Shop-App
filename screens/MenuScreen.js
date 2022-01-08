@@ -10,7 +10,8 @@ function MenuScreen(props) {
           <Text style={styles.textStyle}>Home</Text>
         </View>
         <View style={[styles.textContainer, { borderBottomWidth: 1 }]}>
-          <Button title='Orders' onPress={props.onOrdersPress} />
+          <Button title='Orders' onPress={props.onOrdersPress} color='grey' />
+          <Button title='Admin' onPress={props.onAdminPress} color='grey' />
         </View>
       </View>
     </View>
@@ -25,6 +26,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     borderTopWidth: 1,
+    marginLeft: 0,
   },
 });
 export default MenuScreen;

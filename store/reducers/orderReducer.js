@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useState } from "react";
-import { useSelector } from "react-redux";
 const initialOrderState = {
   orders: [],
 };
@@ -20,6 +18,15 @@ const orderSlice = createSlice({
         items: items,
         amount: amount,
         date: new Date(),
+        get readableDate() {
+          return this.date.toLocaleDateString("en-EN", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+        },
       };
       console.log(temp);
       state.orders.push(temp);

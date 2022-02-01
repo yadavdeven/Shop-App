@@ -1,14 +1,26 @@
 import PRODUCTS from "../../data/dummy-data";
-import { createSlice, configureStore } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 const initialProductsState = {
   availableProducts: PRODUCTS,
-  userProducts: PRODUCTS.filter((prod) => prod.ownerId === "u1"),
+  firebaseProducts: [],
+  isLoading: false,
+  // userProducts: firebaseProducts
+  // ? firebaseProducts.filter((prod) => prod.ownerId === "u1")
+  // : null,
 };
 
 const productsSlice = createSlice({
   name: "products",
   initialState: initialProductsState,
   reducers: {
+    getProductsFetch(state) {
+      state.isLoading = true;
+    },
+    getProductsSuccess(state, action) {
+      state.firebaseProducts = action.payload;
+      state.isLoading = false;
+    },
+
     deleteProduct(state, action) {
       return {
         ...state,
@@ -20,10 +32,22 @@ const productsSlice = createSlice({
         ),
       };
     },
+    deleteProductFetch(state) {
+      state.isLoading = true;
+    },
+
+    productAddFetch(state) {
+      state.isLoading = true;
+    },
+    productUpdateFetch(state) {
+      state.isLoading = true;
+    },
     addProduct(state, action) {
       console.log(action.payload);
-      state.userProducts.push(action.payload);
-      state.availableProducts.push(action.payload);
+      // state.userProducts.push(action.payload);
+      // state.firebaseProducts.push(action.payload);
+      // state.availableProducts = action.payload;
+      state.isLoading = false;
     },
     updateProduct(state, action) {
       console.log(action.payload);
@@ -49,7 +73,12 @@ const productsSlice = createSlice({
   },
 });
 
+export const { productUpdateFetch } = productsSlice.actions;
+export const { productAddFetch } = productsSlice.actions;
+export const { getProductsSuccess } = productsSlice.actions;
+export const { getProductsFetch } = productsSlice.actions;
 export const { deleteProduct } = productsSlice.actions;
 export const { addProduct } = productsSlice.actions;
 export const { updateProduct } = productsSlice.actions;
+export const { deleteProductFetch } = productsSlice.actions;
 export default productsSlice.reducer;

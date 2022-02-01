@@ -8,7 +8,7 @@ function ProductDetailScreen({ navigation, route }) {
   const dispatch = useDispatch();
   const { productId } = route.params;
   const selectedProduct = useSelector((state) =>
-    state.products.availableProducts.find((prod) => prod.id === productId)
+    state.products.firebaseProducts.find((prod) => prod.id === productId)
   );
   return (
     <ScrollView>

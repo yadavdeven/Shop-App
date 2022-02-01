@@ -13,7 +13,7 @@ function OrderItem(props) {
       <View style={{ marginTop: 18, marginBottom: 5 }}>
         <Button
           color={Colors.primary}
-          title='Show Details'
+          title={showDetails ? "Hide Details" : "Show Details"}
           onPress={() => {
             setShowDetails((prevState) => !prevState);
           }}

@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialOrderState = {
   orders: [],
+  firebaseOrders: [],
+  isLoading: false,
 };
 
 const orderSlice = createSlice({
@@ -31,8 +33,22 @@ const orderSlice = createSlice({
       console.log(temp);
       state.orders.push(temp);
     },
+
+    orderProductsFetch(state) {
+      state.isLoading = true;
+    },
+    ordersFetch(state) {
+      state.isLoading = true;
+    },
+    getOrdersSuccess(state, action) {
+      state.firebaseOrders = action.payload;
+      state.isLoading = false;
+    },
   },
 });
 
 export const { addOrder } = orderSlice.actions;
+export const { orderProductsFetch } = orderSlice.actions;
+export const { ordersFetch } = orderSlice.actions;
+export const { getOrdersSuccess } = orderSlice.actions;
 export default orderSlice.reducer;

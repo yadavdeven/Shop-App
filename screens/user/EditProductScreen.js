@@ -13,7 +13,8 @@ import { useSelector, useDispatch } from "react-redux";
 import HeaderButton from "../../components/UI/HeaderButton";
 import {
   addProduct,
-  updateProduct,
+  productAddFetch,
+  productUpdateFetch,
 } from "../../store/reducers/productsReducer";
 
 const FORM_INPUT_UPDATE = "FORM_INPUT_UPDATE";
@@ -45,8 +46,10 @@ function EditProductScreen({ navigation, route }) {
   const dispatch = useDispatch();
   const { productId } = route.params;
   const editedProduct = useSelector((state) =>
-    state.products.userProducts.find((product) => product.id === productId)
+    state.products.firebaseProducts.find((product) => product.id === productId)
   );
+  const token = useSelector((state) => state.auth.token);
+  const userId = useSelector((state) => state.auth.userId);
 
   const [formState, dispatchFormState] = useReducer(formReducer, {
     inputValues: {
@@ -77,15 +80,6 @@ function EditProductScreen({ navigation, route }) {
     });
   }
 
-  // const [title, setTitle] = useState(editedProduct ? editedProduct.title : "");
-  // const [imageUrl, setImageUrl] = useState(
-  //   editedProduct ? editedProduct.imageUrl : ""
-  // );
-  // const [price, setPrice] = useState(editedProduct ? editedProduct.price : "");
-  // const [description, setDescription] = useState(
-  //   editedProduct ? editedProduct.description : ""
-  // );
-
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -96,12 +90,15 @@ function EditProductScreen({ navigation, route }) {
             onPress={() => {
               dispatch(
                 addProduct({
-                  id: "u1",
-                  ownerId: "u1",
-                  title: title,
-                  imageUrl: imageUrl,
-                  price: price,
-                  description: description,
+                  productData: {
+                    id: "u1",
+                    ownerId: "u1",
+                    title: title,
+                    imageUrl: imageUrl,
+                    price: price,
+                    description: description,
+                  },
+                  token: token,
                 })
               );
             }}
@@ -110,6 +107,8 @@ function EditProductScreen({ navigation, route }) {
       ),
     });
   }, []);
+
+  console.log(token);
   return (
     <ScrollView>
       <View style={styles.form}>
@@ -163,28 +162,33 @@ function EditProductScreen({ navigation, route }) {
                 return;
               }
               if (productId) {
+                console.log("update section");
                 dispatch(
-                  updateProduct({
+                  productUpdateFetch({
                     id: productId,
-                    ownerId: "u1",
+                    ownerId: userId,
                     title: formState.inputValues.title,
                     imageUrl: formState.inputValues.imageUrl,
                     price: Number(formState.inputValues.price),
                     description: formState.inputValues.description,
+                    token: token,
                   })
                 );
                 navigation.navigate("UserProducts");
               } else {
                 dispatch(
-                  addProduct({
-                    id: title,
-                    ownerId: "u1",
-                    title: formState.inputValues.title,
-                    imageUrl: formState.inputValues.imageUrl,
-                    price: Number(formState.inputValues.price),
-                    description: formState.inputValues.description,
+                  productAddFetch({
+                    productData: {
+                      ownerId: userId,
+                      title: formState.inputValues.title,
+                      imageUrl: formState.inputValues.imageUrl,
+                      price: Number(formState.inputValues.price),
+                      description: formState.inputValues.description,
+                    },
+                    token: token,
                   })
                 );
+
                 navigation.navigate("UserProducts");
               }
             }}

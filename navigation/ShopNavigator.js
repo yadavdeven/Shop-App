@@ -8,8 +8,9 @@ import OrdersScreen from "../screens/shop/OrdersScreen";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import UserProductsScreen from "../screens/user/UserProductsScreen";
 import EditProductScreen from "../screens/user/EditProductScreen";
+import AuthScreen from "../screens/user/AuthScreen";
+import StartupScreen from "../screens/StartUpScreen";
 const Stack = createNativeStackNavigator();
-const Drawer = createDrawerNavigator();
 function ShopNavigator(props) {
   return (
     <Stack.Navigator
@@ -19,6 +20,8 @@ function ShopNavigator(props) {
         },
         headerTintColor: "white",
       }}>
+      <Stack.Screen name='Startup' component={StartupScreen} />
+      <Stack.Screen name='Auth' component={AuthScreen} />
       <Stack.Screen
         name='ProductOverview'
         component={ProductOverviewScreen}

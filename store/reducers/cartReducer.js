@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addOrder } from "./orderReducer";
+import { addOrder, orderProductsFetch } from "./orderReducer";
 import { deleteProduct } from "./productsReducer";
 const initialCartState = {
   items: [],
@@ -48,7 +48,7 @@ const cartSlice = createSlice({
     },
   },
   extraReducers: {
-    [addOrder]: (state) => {
+    [orderProductsFetch]: (state) => {
       return initialCartState;
     },
   },

@@ -5,10 +5,15 @@ import { useSelector, useDispatch } from "react-redux";
 import Colors from "../../constants/Colors";
 import CartItem from "../../components/shop/CartItem";
 import { cartActions } from "../../store/reducers/cartReducer";
-import { addOrder } from "../../store/reducers/orderReducer";
+import {
+  addOrder,
+  orderProductsFetch,
+} from "../../store/reducers/orderReducer";
 function CartScreen(props) {
   const cartTotalAmount = useSelector((state) => state.cart.totalAmount);
   const cartItems = useSelector((state) => state.cart.items);
+  const token = useSelector((state) => state.auth.token);
+  const userId = useSelector((state) => state.auth.userId);
   const dispatch = useDispatch();
 
   return (
@@ -29,6 +34,17 @@ function CartScreen(props) {
               addOrder({
                 items: cartItems,
                 amount: cartTotalAmount,
+                token: token,
+                userId: userId,
+              })
+            );
+
+            dispatch(
+              orderProductsFetch({
+                items: cartItems,
+                amount: cartTotalAmount,
+                token: token,
+                userId: userId,
               })
             );
           }}

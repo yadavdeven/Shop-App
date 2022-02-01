@@ -12,6 +12,7 @@ function MenuScreen(props) {
         <View style={[styles.textContainer, { borderBottomWidth: 1 }]}>
           <Button title='Orders' onPress={props.onOrdersPress} color='grey' />
           <Button title='Admin' onPress={props.onAdminPress} color='grey' />
+          <Button title='Log-Out' onPress={props.onLogoutPress} color='grey' />
         </View>
       </View>
     </View>

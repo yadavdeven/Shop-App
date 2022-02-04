@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useMemo } from "react";
 import { FlatList, Alert } from "react-native";
 import ProductItem from "../../components/shop/ProductItem";
 import { useSelector, useDispatch } from "react-redux";
@@ -14,42 +14,37 @@ import {
 } from "../../store/reducers/productsReducer";
 
 function UserProductsScreen({ navigation }, props) {
+  console.log("user productscreen rendered");
   const dispatch = useDispatch();
-  // const token = useSelector((state) => state.auth.token);
-  const [showData, setShowData] = useState(false);
+  const [showData, setShowData] = useState(true);
+  // const isLoading = useSelector((state) => state.products.isLoading);
+  // const productsFetched = useSelector(
+  //   (state) => state.products.productsFetched
+  // );
   const token = useSelector((state) => state.auth.token);
   const userId = useSelector((state) => state.auth.userId);
-  // const loadProducts = useFocusEffect(
-  //   useCallback(() => {
-  //     dispatch(getProductsFetch());
-  //     setShowData(true);
-  //     return () => {
-  //       setShowData(false);
-  //     };
-  //   }, [firebaseProducts, dispatch])
-  // );
 
-  const loadProducts = useEffect(() => {
-    dispatch(getProductsFetch());
-    setShowData(true);
-  }, [dispatch, loadProducts]);
+  // useEffect(() => {
+  //   console.log("inside useEffect");
+  //   dispatch(getProductsFetch());
+  //   setShowData(true);
+  // }, []);
 
-  React.useEffect(() => {
-    navigation.addListener("focus", () => {
-      // do something
-      dispatch(getProductsFetch());
-    });
-
-    // return () => {
-    //   willFocusSub.remove();
-    // };
-  }, [navigation, loadProducts]);
   const firebaseProducts = useSelector(
     (state) => state.products.firebaseProducts
   );
+  console.log(firebaseProducts);
+
+  function getProducts(prods) {
+    console.log("memo");
+    return prods.filter((prod) => prods.ownerId === userId);
+  }
+
+  // const userProducts = useMemo(() => getProducts(firebaseProducts), []);
   const userProducts = firebaseProducts.filter(
     (prod) => prod.ownerId === userId
   );
+  console.log(userProducts);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({

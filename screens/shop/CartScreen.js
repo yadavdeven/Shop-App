@@ -10,6 +10,7 @@ import {
   orderProductsFetch,
 } from "../../store/reducers/orderReducer";
 function CartScreen(props) {
+  console.log("in cartscreen");
   const cartTotalAmount = useSelector((state) => state.cart.totalAmount);
   const cartItems = useSelector((state) => state.cart.items);
   const token = useSelector((state) => state.auth.token);

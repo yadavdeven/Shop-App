@@ -8,7 +8,7 @@ import { ordersFetch } from "../../store/reducers/orderReducer";
 import { useFocusEffect } from "@react-navigation/native";
 function OrdersScreen(props) {
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.auth.userId);
+  console.log("orderscreen rendered");
   // const [showData, setShowData] = useState(false);
   // useFocusEffect(
   //   useCallback(() => {
@@ -22,14 +22,16 @@ function OrdersScreen(props) {
   // );
 
   useEffect(() => {
+    console.log("in orders fetch");
     dispatch(
       ordersFetch({
         userId: userId,
       })
     );
-  }, [dispatch]);
+  }, []);
+  const userId = useSelector((state) => state.auth.userId);
 
-  const orders = useSelector((state) => state.orders.orders);
+  // const orders = useSelector((state) => state.orders.orders);
   const firebaseOrders = useSelector((state) => state.orders.firebaseOrders);
   console.log(firebaseOrders);
 

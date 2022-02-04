@@ -19,17 +19,17 @@ function StartupScreen({ navigation }, props) {
       const expirationDate = new Date(expiryDate);
 
       if (expirationDate <= new Date() || !token || !userId) {
-        navigation.navigate.navigate("Auth");
+        navigation.navigate("Auth");
         return;
       }
-
-      navigation.navigate("ProductOverview");
+      // console.log(token);
       dispatch(
         storeUserData({
           token: token,
           userId: userId,
         })
       );
+      navigation.navigate("ProductOverview");
     };
     tryLogin();
   }, [dispatch]);

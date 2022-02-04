@@ -12,38 +12,31 @@ import { useFocusEffect } from "@react-navigation/native";
 import { getProductsFetch } from "../../store/reducers/productsReducer";
 import LoadingIndicator from "../../components/UI/LoadingIndicator";
 import { logout } from "../../store/reducers/authReducer";
+import { ordersFetch } from "../../store/reducers/orderReducer";
 function ProductOverviewScreen({ navigation }, props) {
+  console.log("product overviewscreen rendered");
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   dispatch(getProductsFetch());
-  // }, [dispatch]);
-  // console.log(firebaseProducts);
-
   const [showData, setShowData] = useState(false);
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     dispatch(getProductsFetch());
-  //     setShowData(true);
+  const userId = useSelector((state) => state.auth.userId);
+  console.log(userId);
 
-  //     return () => {
-  //       setShowData(false);
-  //     };
-  //   }, [firebaseProducts])
-  // );
   useEffect(() => {
+    console.log("inside product fetch from overview");
     dispatch(getProductsFetch());
     setShowData(true);
-  });
+  }, []);
+
   const firebaseProducts = useSelector(
     (state) => state.products.firebaseProducts
   );
   // const products = useSelector((state) => state.products.availableProducts);
-  const cartItems = useSelector((state) => state.cart.items);
+  // const cartItems = useSelector((state) => state.cart.items);
   const [showMenu, setShowMenu] = useState(false);
   const scaleValue = useRef(new Animated.Value(1)).current;
   const offsetValue = useRef(new Animated.Value(0)).current;
   // console.log(cartItems);
+  console.log(firebaseProducts);
+  console.log(showData);
 
   function menuPress() {
     console.log("in menu press");
@@ -93,7 +86,12 @@ function ProductOverviewScreen({ navigation }, props) {
         {showMenu ? (
           <MenuScreen
             onOrdersPress={() => {
-              console.log("orders press");
+              // console.log("order press");
+              // dispatch(
+              //   ordersFetch({
+              //     userId: userId,
+              //   })
+              // );
               navigation.navigate("Orders");
             }}
             onAdminPress={() => {

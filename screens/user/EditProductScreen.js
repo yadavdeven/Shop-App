@@ -13,9 +13,11 @@ import { useSelector, useDispatch } from "react-redux";
 import HeaderButton from "../../components/UI/HeaderButton";
 import {
   addProduct,
+  getProductsFetch,
   productAddFetch,
   productUpdateFetch,
 } from "../../store/reducers/productsReducer";
+import LoadingIndicator from "../../components/UI/LoadingIndicator";
 
 const FORM_INPUT_UPDATE = "FORM_INPUT_UPDATE";
 
@@ -44,6 +46,7 @@ function formReducer(state, action) {
 
 function EditProductScreen({ navigation, route }) {
   const dispatch = useDispatch();
+  console.log("edit productscreen rendered");
   const { productId } = route.params;
   const editedProduct = useSelector((state) =>
     state.products.firebaseProducts.find((product) => product.id === productId)
@@ -108,7 +111,7 @@ function EditProductScreen({ navigation, route }) {
     });
   }, []);
 
-  console.log(token);
+  // console.log(token);
   return (
     <ScrollView>
       <View style={styles.form}>
@@ -154,7 +157,7 @@ function EditProductScreen({ navigation, route }) {
           style={{ marginTop: 25, marginHorizontal: 100, borderRadius: 10 }}>
           <Button
             title={productId ? "Update Product" : "Add Product"}
-            onPress={() => {
+            onPress={async () => {
               if (!formState.formisValid) {
                 Alert.alert("Wrong Input!, Please check the errors!", [
                   { text: "Okay" },
@@ -188,8 +191,12 @@ function EditProductScreen({ navigation, route }) {
                     token: token,
                   })
                 );
-
+                // dispatch(getProductsFetch());
                 navigation.navigate("UserProducts");
+                // setTimeout(() => {
+                //   navigation.navigate("UserProducts");
+                // }, 1000);
+                // navigation.navigate.goBack();
               }
             }}
           />

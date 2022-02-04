@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialProductsState = {
   availableProducts: PRODUCTS,
   firebaseProducts: [],
-  isLoading: false,
+  productsFetched: false,
   // userProducts: firebaseProducts
   // ? firebaseProducts.filter((prod) => prod.ownerId === "u1")
   // : null,
@@ -14,11 +14,11 @@ const productsSlice = createSlice({
   initialState: initialProductsState,
   reducers: {
     getProductsFetch(state) {
-      state.isLoading = true;
+      state.productsFetched = false;
     },
     getProductsSuccess(state, action) {
+      console.log("get product success");
       state.firebaseProducts = action.payload;
-      state.isLoading = false;
     },
 
     deleteProduct(state, action) {
@@ -45,7 +45,7 @@ const productsSlice = createSlice({
     addProduct(state, action) {
       console.log(action.payload);
       // state.userProducts.push(action.payload);
-      // state.firebaseProducts.push(action.payload);
+      state.firebaseProducts.push(action.payload);
       // state.availableProducts = action.payload;
       state.isLoading = false;
     },

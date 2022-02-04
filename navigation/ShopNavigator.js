@@ -5,7 +5,6 @@ import ProductDetailScreen from "../screens/shop/ProductDetailScreen";
 import Colors from "../constants/Colors";
 import CartScreen from "../screens/shop/CartScreen";
 import OrdersScreen from "../screens/shop/OrdersScreen";
-import { createDrawerNavigator } from "@react-navigation/drawer";
 import UserProductsScreen from "../screens/user/UserProductsScreen";
 import EditProductScreen from "../screens/user/EditProductScreen";
 import AuthScreen from "../screens/user/AuthScreen";

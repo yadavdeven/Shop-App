@@ -57,9 +57,11 @@ const authSlice = createSlice({
       state.isLoading = false;
     },
     storeUserData(state, action) {
+      console.log("in store data reducer");
       state.response = true;
-      state.token = action.payload.idToken;
-      state.userId = action.payload.localId;
+      state.token = action.payload.token;
+      state.userId = action.payload.userId;
+      console.log(action.payload.userId);
     },
     signInFailed(state, action) {
       console.log("signin failed");

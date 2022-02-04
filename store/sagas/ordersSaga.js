@@ -12,10 +12,10 @@ function* orderFetch(params) {
       }
     )
   );
-  console.log(orders);
   const formattedOrders = yield orders.json();
+  console.log(formattedOrders);
   const finalOrders = [];
-  // console.log(formattedProducts);
+
   for (const [k, v] of Object.entries(formattedOrders)) {
     v["id"] = k;
     // console.log(v);
